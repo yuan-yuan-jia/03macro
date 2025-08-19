@@ -1,5 +1,5 @@
 [package]
-name = "rcli"
+name = "macros"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
@@ -7,3 +7,6 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+anyhow = "1.0.99"
+futures = "0.3.31"
+tokio = { version = "1.47.1", features = ["rt", "rt-multi-thread", "macros"] }
