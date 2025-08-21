@@ -9,7 +9,7 @@ pub fn derive_enum_from(input: TokenStream) -> TokenStream {
     println!("{input:#?}");
 
     let ident = input.ident;
-    // let generic = input.generics;
+    let generic = input.generics;
 
     let data = input.data;
 
@@ -29,7 +29,7 @@ pub fn derive_enum_from(input: TokenStream) -> TokenStream {
                     let filed = fields_unnamed.unnamed.first().expect("should have 1 field");
                     let ty = &filed.ty;
                     quote! {
-                        impl From<#ty> for #ident {
+                        impl #generic From<#ty> for #ident #generic {
                             fn from(v: #ty) -> Self {
                                 #ident::#var(v)
                             }
