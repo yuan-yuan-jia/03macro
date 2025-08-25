@@ -1,8 +1,29 @@
 // proc macro crate
+mod auto_debug;
+mod auto_deref;
+
+use auto_debug::process_auto_debug;
+use auto_deref::process_auto_deref;
 
 use darling::{FromDeriveInput, FromField, FromVariant};
 use proc_macro::TokenStream;
 use quote::quote;
+use syn::DeriveInput;
+
+#[proc_macro_derive(AutoDeref, attributes(deref))]
+pub fn derive_auto_deref(input: TokenStream) -> TokenStream {
+    let input = syn::parse_macro_input!(input as DeriveInput);
+    println!("{input:?}");
+    process_auto_deref(input).into()
+}
+
+#[proc_macro_derive(AutoDebug, attributes(debug))]
+pub fn derive_auto_debug(input: TokenStream) -> TokenStream {
+    let input = syn::parse_macro_input!(input as DeriveInput);
+    println!("{input:#?}");
+
+    process_auto_debug(input).into()
+}
 
 #[proc_macro_derive(EnumFrom)]
 pub fn derive_enum_from(input: TokenStream) -> TokenStream {
